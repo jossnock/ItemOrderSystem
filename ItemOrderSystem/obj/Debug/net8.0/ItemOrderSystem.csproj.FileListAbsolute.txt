@@ -1,0 +1,15 @@
+C:\Users\Joss Nockolds\source\repos\ItemOrderSystem\ItemOrderSystem\bin\Debug\net8.0\ItemOrderSystem.exe
+C:\Users\Joss Nockolds\source\repos\ItemOrderSystem\ItemOrderSystem\bin\Debug\net8.0\ItemOrderSystem.deps.json
+C:\Users\Joss Nockolds\source\repos\ItemOrderSystem\ItemOrderSystem\bin\Debug\net8.0\ItemOrderSystem.runtimeconfig.json
+C:\Users\Joss Nockolds\source\repos\ItemOrderSystem\ItemOrderSystem\bin\Debug\net8.0\ItemOrderSystem.dll
+C:\Users\Joss Nockolds\source\repos\ItemOrderSystem\ItemOrderSystem\bin\Debug\net8.0\ItemOrderSystem.pdb
+C:\Users\Joss Nockolds\source\repos\ItemOrderSystem\ItemOrderSystem\obj\Debug\net8.0\ItemOrderSystem.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Joss Nockolds\source\repos\ItemOrderSystem\ItemOrderSystem\obj\Debug\net8.0\ItemOrderSystem.AssemblyInfoInputs.cache
+C:\Users\Joss Nockolds\source\repos\ItemOrderSystem\ItemOrderSystem\obj\Debug\net8.0\ItemOrderSystem.AssemblyInfo.cs
+C:\Users\Joss Nockolds\source\repos\ItemOrderSystem\ItemOrderSystem\obj\Debug\net8.0\ItemOrderSystem.csproj.CoreCompileInputs.cache
+C:\Users\Joss Nockolds\source\repos\ItemOrderSystem\ItemOrderSystem\obj\Debug\net8.0\ItemOrderSystem.sourcelink.json
+C:\Users\Joss Nockolds\source\repos\ItemOrderSystem\ItemOrderSystem\obj\Debug\net8.0\ItemOrderSystem.dll
+C:\Users\Joss Nockolds\source\repos\ItemOrderSystem\ItemOrderSystem\obj\Debug\net8.0\refint\ItemOrderSystem.dll
+C:\Users\Joss Nockolds\source\repos\ItemOrderSystem\ItemOrderSystem\obj\Debug\net8.0\ItemOrderSystem.pdb
+C:\Users\Joss Nockolds\source\repos\ItemOrderSystem\ItemOrderSystem\obj\Debug\net8.0\ItemOrderSystem.genruntimeconfig.cache
+C:\Users\Joss Nockolds\source\repos\ItemOrderSystem\ItemOrderSystem\obj\Debug\net8.0\ref\ItemOrderSystem.dll
