@@ -1,6 +1,6 @@
 # ItemOrderSystem
 
-## TODO
+## To do
 Add purchasing
 Add selling
 Add more item properties
