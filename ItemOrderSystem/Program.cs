@@ -35,7 +35,7 @@ class Item
         Console.WriteLine($"| {name} | {price} | {quantity} |");
     }
 
-    public static void PrintAllItems(Item[] items)
+    public static void PrintAllItems(List<Item> items)
     {
         // Setting column heading widths:
         int longestWordLength = 4; // length of column heading
@@ -67,52 +67,67 @@ class ItemOrderSystem
     public static void Main(string[] args)
     {
         // defining allItems:
-        var item1 = new Item { Name = "Whole Milk", Size = "2 litres", Price = 3.5f, Quantity = 10 };
-        var item2 = new Item { Name = "White Bread Loaf", Price = 2.0f, Quantity = 10 };
-        var item3 = new Item { Name = "Wholemeal Bread Loaf", Price = 2.0f, Quantity = 10 };
-        var item4 = new Item { Name = "Eggs", Size = "dozen", Price = 2.5f, Quantity = 10 };
-        var item5 = new Item { Name = "Bananas", Size = "500 grams", Price = 0.6f, Quantity = 10 };
-        var item6 = new Item { Name = "Chicken Breast", Size = "450 grams", Price = 3.0f, Quantity = 10 };
-        var item7 = new Item { Name = "Beef Mice", Size = "450 grams", Price = 5.0f, Quantity = 10 };
-        var item8 = new Item { Name = "Cheddar Cheese", Size = "250 grams", Price = 3.0f, Quantity = 10 };
-        var item9 = new Item { Name = "Apples", Size = "500 grams", Price = 1.5f, Quantity = 10 };
-        var item10 = new Item { Name = "Orange Juice", Size = "1 litre", Price = 1.3f, Quantity = 10 };
-        var item11 = new Item { Name = "Spaghetti", Size = "450 grams", Price = 1.2f, Quantity = 10 };
-        var item12 = new Item { Name = "Tomato Sauce", Size = "600 grams", Price = 1.5f, Quantity = 10 };
-        var item13 = new Item { Name = "Peas", Qualities = new string[]{ "frozen" }, Size = "500 grams", Price = 1.0f, Quantity = 10 };
-        var item14 = new Item { Name = "Rice", Size = "1 kilogram", Price = 1.8f, Quantity = 10 };
-        var item15 = new Item { Name = "Peanut Butter", Size = "500 grams", Price = 2.5f, Quantity = 10 };
-        var item16 = new Item { Name = "Yogurt", Size = "170 millilitres", Price = 0.8f, Quantity = 10 };
-        Item[] allItems = { item1, item2, item3, item4, item5, item6, item7, item8, item9, item10, item11, item12, item13, item14, item15, item16 };
+        var item1 = new Item { Name = "whole milk", Size = "2 litres", Price = 3.5f, Quantity = 10 };
+        var item2 = new Item { Name = "white bread", Qualities = new string[] { "loaf" }, Price = 2.0f, Quantity = 10 };
+        var item3 = new Item { Name = "wholemeal bread", Qualities = new string[] { "loaf" }, Price = 2.0f, Quantity = 10 };
+        var item4 = new Item { Name = "eggs", Size = "dozen", Price = 2.5f, Quantity = 10 };
+        var item5 = new Item { Name = "bananas", Size = "500 grams", Price = 0.6f, Quantity = 10 };
+        var item6 = new Item { Name = "chicken breast", Size = "450 grams", Price = 3.0f, Quantity = 10 };
+        var item7 = new Item { Name = "beef mince", Size = "450 grams", Price = 5.0f, Quantity = 10 };
+        var item8 = new Item { Name = "cheddar cheese", Size = "250 grams", Price = 3.0f, Quantity = 10 };
+        var item9 = new Item { Name = "apples", Size = "500 grams", Price = 1.5f, Quantity = 10 };
+        var item10 = new Item { Name = "orange juice", Size = "1 litre", Price = 1.3f, Quantity = 10 };
+        var item11 = new Item { Name = "spaghetti", Size = "450 grams", Price = 1.2f, Quantity = 10 };
+        var item12 = new Item { Name = "tomato sauce", Size = "600 grams", Price = 1.5f, Quantity = 10 };
+        var item13 = new Item { Name = "peas", Qualities = new string[] { "frozen" }, Size = "500 grams", Price = 1.0f, Quantity = 10 };
+        var item14 = new Item { Name = "rice", Size = "1 kilogram", Price = 1.8f, Quantity = 10 };
+        var item15 = new Item { Name = "peanut butter", Size = "500 grams", Price = 2.5f, Quantity = 10 };
+        var item16 = new Item { Name = "yogurt", Size = "170 millilitres", Price = 0.8f, Quantity = 10 };
+
+        List<Item> allItems = new Item[] { item1, item2, item3, item4, item5, item6, item7, item8, item9, item10, item11, item12, item13, item14, item15, item16 }.ToList();
+        
+        string choiceMessage = "Choose an item";
 
         // running Item Order System:
-        //while (true)
-        //{
-        //    public List<string> itemNames
-        //    {
-        //         get
-        //        {
-        //            return allItems.Select(C => C.Name).ToList();
-        //        }
-        //    }
+        while (true)
+        {
+            Console.Clear();
+            Item.PrintAllItems(allItems);
+
+            string[] itemNames = allItems.Select(C => C.Name).ToArray();
+            string itemNamesStr = string.Join(", ", itemNames);
+            Console.WriteLine(" "); // spacing
+            Console.WriteLine(choiceMessage);
+            string? chosenItemStr = Console.ReadLine();
+
+            if (!itemNamesStr.Contains(chosenItemStr))
+            {
+                choiceMessage = "Please choose a valid item";
+                continue;
+            }
+            choiceMessage = "Choose an item"; // resetting choiceMessage once a correct input is inputted
+
+            // converting input to Item:
+            int index = Array.IndexOf(itemNames, chosenItemStr);
+            Item chosenItem = allItems[index];
 
 
 
-        //    Item.PrintAllItems(allItems);
-        //    Console.WriteLine(" "); // spacing
-        //    string? chosenItem = Console.ReadLine();
+
+
+
+
+
+
+
+
+
+            break;
+        }
 
             
 
 
-            //public list<string> firstnames
-            //{
-            //    get
-            //    {
-            //        return _contactList.Select(C => C.FirstName).ToList();
-            //    }
-            //}
-        //}
 
     }
 
