@@ -33,10 +33,9 @@ class Item
         name = name.PadRight(namePadding);
 
         Console.WriteLine($"| {name} | {price} | {quantity} |");
-
     }
 
-    static void PrintAllItems(Item[] items)
+    public static void PrintAllItems(Item[] items)
     {
         // Setting column heading widths:
         int longestWordLength = 4; // length of column heading
@@ -46,7 +45,7 @@ class Item
         {
             if (item.Name.Length + 1 + item.Size.Length > longestWordLength)
                 longestWordLength = item.Name.Length + 3 + item.Size.Length; // + 3 accounts for space and brackets
-            if (item.Price.ToString().Length > highestPriceDigits) 
+            if (item.Price.ToString().Length > highestPriceDigits)
                 highestPriceDigits = item.Price.ToString().Length;
         }
 
@@ -58,10 +57,15 @@ class Item
             PrintItem(item, longestWordLength, highestPriceDigits, highestQuantityDigits);
         }
     }
+}
 
+
+
+
+class ItemOrderSystem
+{
     public static void Main(string[] args)
     {
-
         // defining allItems:
         var item1 = new Item { Name = "Whole Milk", Size = "2 litres", Price = 3.5f, Quantity = 10 };
         var item2 = new Item { Name = "White Bread Loaf", Price = 2.0f, Quantity = 10 };
@@ -79,13 +83,36 @@ class Item
         var item14 = new Item { Name = "Rice", Size = "1 kilogram", Price = 1.8f, Quantity = 10 };
         var item15 = new Item { Name = "Peanut Butter", Size = "500 grams", Price = 2.5f, Quantity = 10 };
         var item16 = new Item { Name = "Yogurt", Size = "170 millilitres", Price = 0.8f, Quantity = 10 };
-        Item[] allItems = { item1, item2, item3, item4, item5, item6, item7, item8, item9, item10, item11, item12, item13, item14, item15, item16 }; 
+        Item[] allItems = { item1, item2, item3, item4, item5, item6, item7, item8, item9, item10, item11, item12, item13, item14, item15, item16 };
 
-        PrintAllItems(allItems);
+        // running Item Order System:
+        //while (true)
+        //{
+        //    public List<string> itemNames
+        //    {
+        //         get
+        //        {
+        //            return allItems.Select(C => C.Name).ToList();
+        //        }
+        //    }
 
-        PrintItem(item16);
-        PrintItem(item13);
 
+
+        //    Item.PrintAllItems(allItems);
+        //    Console.WriteLine(" "); // spacing
+        //    string? chosenItem = Console.ReadLine();
+
+            
+
+
+            //public list<string> firstnames
+            //{
+            //    get
+            //    {
+            //        return _contactList.Select(C => C.FirstName).ToList();
+            //    }
+            //}
+        //}
 
     }
 
