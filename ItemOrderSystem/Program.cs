@@ -1,35 +1,39 @@
 ﻿
 class Item
 {
-    public string Name
-    { get; set; } = string.Empty;
-
-    public string Size
-    { get; set; } = string.Empty;
-
-    public float Price
-    { get; set; }
-
-    public int Quantity
-    { get; set; }
+    public string Name { get; set; } = string.Empty;
+    public string[] Qualities { get; set; }
+    public string Size { get; set; } = string.Empty;
+    public float Price { get; set; }
+    public int Quantity { get; set; }
 
     public static void PrintItem(Item inputItem)
     {
-        if (string.IsNullOrEmpty(inputItem.Size))
-        {
-            Console.WriteLine($"| {inputItem.Name} | {inputItem.Price} | {inputItem.Quantity} |");
-        }
-        else
-            Console.WriteLine($"| {inputItem.Name} ({inputItem.Size}) | {inputItem.Price} | {inputItem.Quantity} |");
+        string name = inputItem.Name;
+        float price = inputItem.Price;
+        int quantity = inputItem.Quantity;
+
+        // updating name to include qualities and size:
+        if (!(inputItem.Qualities == null || inputItem.Qualities.Length == 0))
+            foreach (string s in inputItem.Qualities) name += $", {s}";
+        if (!string.IsNullOrEmpty(inputItem.Size)) name += $" ({inputItem.Size})";
+
+        Console.WriteLine($"| {name} | {price} | {quantity} |");
     }
-    public static void PrintItem(Item inputItem, int namePadding, int pricePadding, int quantityPadding) // capability for padding to be passed into PrintItem
+    public static void PrintItem(Item inputItem, int namePadding = 0, int pricePadding = 0, int quantityPadding = 0) // capability for padding to be passed into PrintItem
     {
-        if (string.IsNullOrEmpty(inputItem.Size))
-        {
-            Console.WriteLine($"| {inputItem.Name.PadRight(namePadding)} | {inputItem.Price.ToString().PadRight(pricePadding)} | {inputItem.Quantity.ToString().PadRight(quantityPadding)} |");
-        }
-        else
-            Console.WriteLine($"| {$"{inputItem.Name} ({inputItem.Size})".PadRight(namePadding)} | {inputItem.Price.ToString().PadRight(pricePadding)} | {inputItem.Quantity.ToString().PadRight(quantityPadding)} |");
+        string name = inputItem.Name;
+        string price = inputItem.Price.ToString().PadRight(pricePadding);
+        string quantity = inputItem.Quantity.ToString().PadRight(quantityPadding);
+
+        // updating name to include qualities and size:
+        if (!(inputItem.Qualities == null || inputItem.Qualities.Length == 0))
+            foreach (string s in inputItem.Qualities) name += $", {s}";
+        if (!string.IsNullOrEmpty(inputItem.Size)) name += $" ({inputItem.Size})";
+        name = name.PadRight(namePadding);
+
+        Console.WriteLine($"| {name} | {price} | {quantity} |");
+
     }
 
     static void PrintAllItems(Item[] items)
@@ -71,13 +75,16 @@ class Item
         var item10 = new Item { Name = "Orange Juice", Size = "1 litre", Price = 1.3f, Quantity = 10 };
         var item11 = new Item { Name = "Spaghetti", Size = "450 grams", Price = 1.2f, Quantity = 10 };
         var item12 = new Item { Name = "Tomato Sauce", Size = "600 grams", Price = 1.5f, Quantity = 10 };
-        var item13 = new Item { Name = "Peas, frozen", Size = "500 grams", Price = 1.0f, Quantity = 10 }; // TODO: Implement Item.Properties
+        var item13 = new Item { Name = "Peas", Qualities = new string[]{ "frozen" }, Size = "500 grams", Price = 1.0f, Quantity = 10 };
         var item14 = new Item { Name = "Rice", Size = "1 kilogram", Price = 1.8f, Quantity = 10 };
         var item15 = new Item { Name = "Peanut Butter", Size = "500 grams", Price = 2.5f, Quantity = 10 };
         var item16 = new Item { Name = "Yogurt", Size = "170 millilitres", Price = 0.8f, Quantity = 10 };
         Item[] allItems = { item1, item2, item3, item4, item5, item6, item7, item8, item9, item10, item11, item12, item13, item14, item15, item16 }; 
 
         PrintAllItems(allItems);
+
+        PrintItem(item16);
+        PrintItem(item13);
 
 
     }
