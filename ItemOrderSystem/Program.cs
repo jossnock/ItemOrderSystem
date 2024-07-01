@@ -1,30 +1,40 @@
 ﻿
 class Item
 {
-    public string Name { get; set; } = string.Empty;
-    public string[] Qualities { get; set; }
-    public string Size { get; set; } = string.Empty;
+    public int Number { get; set; }
+    public string Name { get; set; }
+    public string Size { get; set; }
     public float Price { get; set; }
-    public int Quantity { get; set; }
+    public string[]? Qualities { get; set; }
 
-    public static void PrintItem(Item inputItem)
+    public Item(int number, string name, string size, float price)
     {
+        Number = number; Name = name; Size = size; Price = price;
+    }
+    public Item(int number, string name, string size, float price, string[] qualities)
+    {
+        Number = number; Name = name; Size = size; Price = price; Qualities = qualities;
+    }
+
+
+    public static void WriteItem(Item inputItem)
+    {
+        int number = inputItem.Number;
         string name = inputItem.Name;
         float price = inputItem.Price;
-        int quantity = inputItem.Quantity;
 
         // updating name to include qualities and size:
         if (!(inputItem.Qualities == null || inputItem.Qualities.Length == 0))
             foreach (string s in inputItem.Qualities) name += $", {s}";
         if (!string.IsNullOrEmpty(inputItem.Size)) name += $" ({inputItem.Size})";
 
-        Console.WriteLine($"| {name} | {price} | {quantity} |");
+        Console.Write($"| {number} | {name} | {price} |");
     }
-    public static void PrintItem(Item inputItem, int namePadding = 0, int pricePadding = 0, int quantityPadding = 0) // capability for padding to be passed into PrintItem
+    public static void WriteItem(Item inputItem, int namePadding = 0, int pricePadding = 0) // capability for padding to be passed into WriteItem
     {
+        int number = inputItem.Number;
         string name = inputItem.Name;
         string price = inputItem.Price.ToString().PadRight(pricePadding);
-        string quantity = inputItem.Quantity.ToString().PadRight(quantityPadding);
 
         // updating name to include qualities and size:
         if (!(inputItem.Qualities == null || inputItem.Qualities.Length == 0))
@@ -32,104 +42,163 @@ class Item
         if (!string.IsNullOrEmpty(inputItem.Size)) name += $" ({inputItem.Size})";
         name = name.PadRight(namePadding);
 
-        Console.WriteLine($"| {name} | {price} | {quantity} |");
+        Console.Write($"| {number} dea| {name} | {price} |");
     }
 
-    public static void PrintAllItems(List<Item> items)
+    public static void WriteAllItems(Dictionary<Item, int> items)
     {
         // Setting column heading widths:
         int longestWordLength = 4; // length of column heading
         int highestPriceDigits = 5; // length of column heading
         int highestQuantityDigits = 8; // length of column heading
-        foreach (Item item in items)
+        foreach (KeyValuePair<Item, int> item in items)
         {
-            if (item.Name.Length + 1 + item.Size.Length > longestWordLength)
-                longestWordLength = item.Name.Length + 3 + item.Size.Length; // + 3 accounts for space and brackets
-            if (item.Price.ToString().Length > highestPriceDigits)
-                highestPriceDigits = item.Price.ToString().Length;
+            if (item.Key.Name.Length + 1 + item.Key.Size.Length > longestWordLength)
+                longestWordLength = item.Key.Name.Length + 3 + item.Key.Size.Length; // + 3 accounts for space and brackets
+            if (item.Key.Price.ToString().Length > highestPriceDigits)
+                highestPriceDigits = item.Key.Price.ToString().Length;
         }
 
         // Outputing table:
         Console.WriteLine($"| {"Name".PadRight(longestWordLength)} | {"Price".PadRight(highestPriceDigits)} | {"Quantity".PadRight(highestQuantityDigits)} |");
         Console.WriteLine("|-" + new string('-', longestWordLength) + "-|-" + new string('-', highestPriceDigits) + "-|-" + new string('-', highestQuantityDigits) + "-|"); // + 7 accounts for spacing and vertical bar
-        foreach (Item item in items)
+        foreach (KeyValuePair<Item, int> item in items)
         {
-            PrintItem(item, longestWordLength, highestPriceDigits, highestQuantityDigits);
+            WriteItem(item.Key, longestWordLength, highestPriceDigits);
+            Console.WriteLine($" | { Convert.ToString(item.Value).PadRight(highestQuantityDigits)} |");
         }
     }
 }
 
-
-
-
-class ItemOrderSystem
+class Account
 {
-    public static void Main(string[] args)
+    public float Funds { get; set; }
+    public Dictionary<Item, int> Inventory { get; set; }
+
+    public Account(float funds, Dictionary<Item, int> inventory)
     {
-        // defining allItems:
-        var item1 = new Item { Name = "whole milk", Size = "2 litres", Price = 3.5f, Quantity = 10 };
-        var item2 = new Item { Name = "white bread", Qualities = new string[] { "loaf" }, Price = 2.0f, Quantity = 10 };
-        var item3 = new Item { Name = "wholemeal bread", Qualities = new string[] { "loaf" }, Price = 2.0f, Quantity = 10 };
-        var item4 = new Item { Name = "eggs", Size = "dozen", Price = 2.5f, Quantity = 10 };
-        var item5 = new Item { Name = "bananas", Size = "500 grams", Price = 0.6f, Quantity = 10 };
-        var item6 = new Item { Name = "chicken breast", Size = "450 grams", Price = 3.0f, Quantity = 10 };
-        var item7 = new Item { Name = "beef mince", Size = "450 grams", Price = 5.0f, Quantity = 10 };
-        var item8 = new Item { Name = "cheddar cheese", Size = "250 grams", Price = 3.0f, Quantity = 10 };
-        var item9 = new Item { Name = "apples", Size = "500 grams", Price = 1.5f, Quantity = 10 };
-        var item10 = new Item { Name = "orange juice", Size = "1 litre", Price = 1.3f, Quantity = 10 };
-        var item11 = new Item { Name = "spaghetti", Size = "450 grams", Price = 1.2f, Quantity = 10 };
-        var item12 = new Item { Name = "tomato sauce", Size = "600 grams", Price = 1.5f, Quantity = 10 };
-        var item13 = new Item { Name = "peas", Qualities = new string[] { "frozen" }, Size = "500 grams", Price = 1.0f, Quantity = 10 };
-        var item14 = new Item { Name = "rice", Size = "1 kilogram", Price = 1.8f, Quantity = 10 };
-        var item15 = new Item { Name = "peanut butter", Size = "500 grams", Price = 2.5f, Quantity = 10 };
-        var item16 = new Item { Name = "yogurt", Size = "170 millilitres", Price = 0.8f, Quantity = 10 };
+        Funds = funds; Inventory = inventory;
+    }
+    public Account(float funds)
+    {
+        Funds = funds; Inventory = new Dictionary<Item, int>();
+    }
+}
 
-        List<Item> allItems = new Item[] { item1, item2, item3, item4, item5, item6, item7, item8, item9, item10, item11, item12, item13, item14, item15, item16 }.ToList();
-        
-        string choiceMessage = "Choose an item";
+class EndUser : Account
+{
+    public string Name { get; set; }
+    public string Password { get; set; }
+    public EndUser(string name, string password, float funds, Dictionary<Item, int> inventory) : base(funds, inventory)
+    {
+        Name = name; Password = password; Funds = funds; Inventory = inventory;
+    }
+    public EndUser(string name, string password, float funds) : base(funds)
+    {
+        Name = name; Password = password; Funds = funds;
+    }
 
-        // running Item Order System:
+    public static void RunInventoryWindow(EndUser user)
+    {
+        string choiceMessage = "Type 'return' to return to the shop window"; // set before so it can be changed in the loop
         while (true)
         {
             Console.Clear();
-            Item.PrintAllItems(allItems);
+            Item.WriteAllItems(user.Inventory);
 
-            string[] itemNames = allItems.Select(C => C.Name).ToArray();
+            Console.WriteLine(" "); // spacing
+            Console.WriteLine(choiceMessage);
+            string? inputStr = Console.ReadLine();
+
+            if (inputStr == null || inputStr == string.Empty)
+            {
+                choiceMessage = "Please type a valid command";
+                continue;
+            }
+            if (inputStr == "return")
+            {
+                Console.Clear();
+                break;
+            }
+        }
+    }
+}
+
+class ShopSystem : Account
+{
+    public ShopSystem(float funds, Dictionary<Item, int> inventory) : base(funds, inventory)
+    {
+        Funds = funds; Inventory = inventory;
+    }
+
+    public static void RunShopWindow(ShopSystem shop, EndUser user)
+    {
+        string choiceMessage = "type the name of an item, or type 'inventory' for your inventory"; // set before so it can be changed in the loop
+        while (true)
+        {
+            Console.Clear();
+            Item.WriteAllItems(shop.Inventory);
+
+            string[] itemNames = shop.Inventory.Select(x => x.Key.Name).ToArray();
             string itemNamesStr = string.Join(", ", itemNames);
             Console.WriteLine(" "); // spacing
             Console.WriteLine(choiceMessage);
             string? chosenItemStr = Console.ReadLine();
 
-            if (!itemNamesStr.Contains(chosenItemStr))
+            if (chosenItemStr == null || chosenItemStr == string.Empty)
             {
                 choiceMessage = "Please choose a valid item";
                 continue;
             }
-            choiceMessage = "Choose an item"; // resetting choiceMessage once a correct input is inputted
+            else if (chosenItemStr == "inventory")
+            {
+                EndUser.RunInventoryWindow(user);
+                continue;
+            }
+            else if (!itemNamesStr.Contains(chosenItemStr))
+            {
+                choiceMessage = "Please choose a valid item";
+                continue;
+            }
+            choiceMessage = "Choose an item"; // resets choiceMessage once an input is accepted
 
             // converting input to Item:
             int index = Array.IndexOf(itemNames, chosenItemStr);
-            Item chosenItem = allItems[index];
-
-
-
-
-
-
-
-
-
-
-
-
-            break;
+            Item chosenItem = shop.Inventory[index];
+            user.Inventory.Add(chosenItem, 1);
         }
-
-            
-
-
-
     }
+}
 
+class ItemOrderSystem
+{
+    public static void Main(string[] args)
+    {
+        // defining shop:
+        Dictionary<Item, int> allItems = new Dictionary<Item, int>();
+        allItems.Add(new Item(1, "whole milk", "2 litres", 3.5f), 10);
+        allItems.Add(new Item(2, "white bread", "1 loaf", 2), 10);
+        allItems.Add(new Item(3, "wholemeal bread", "1 loaf", 2), 10);
+        allItems.Add(new Item(4, "eggs", "dozen", 2.5f), 10);
+        allItems.Add(new Item(5, "bananas", "500 grams", 0.6f), 10);
+        allItems.Add(new Item(6, "chicken breast", "450 grams", 3), 10);
+        allItems.Add(new Item(7, "beef mince", "450 grams", 5), 10);
+        allItems.Add(new Item(8, "cheddar cheese", "250 grams", 3), 10);
+        allItems.Add(new Item(9, "apples", "500 grams", 1.5f), 10);
+        allItems.Add(new Item(10, "orange juice", "1 litre", 1.3f), 10);
+        allItems.Add(new Item(11, "spaghetti", "450 grams", 1.2f), 10);
+        allItems.Add(new Item(12, "tomato sauce", "600 grams", 1.5f), 10);
+        allItems.Add(new Item(13, "peas, frozen", "500 grams", 1), 10);
+        allItems.Add(new Item(14, "rice", "1 kilogram", 1.8f), 10);
+        allItems.Add(new Item(15, "peanut butter", "500 grams", 2.5f), 10);
+        allItems.Add(new Item(16, "yogurt", "170 millilitres", 0.8f), 10);
+        var shop = new ShopSystem(1000, allItems);
+
+        // defining user:
+        var user = new EndUser("Tester", "asdf1234!", 100f);
+
+        // running Item Order System:
+        ShopSystem.RunShopWindow(shop, user);
+    }
 }
 
